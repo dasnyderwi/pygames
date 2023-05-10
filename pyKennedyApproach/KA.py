@@ -31,21 +31,10 @@ font = pygame.font.SysFont('monospace', 20, bold=True)
 # Set the title of the window
 pygame.display.set_caption("Kennedy Approach")
 
-
-    
+   
 # Draw the background color
 screen.fill(MEDIUM_LT_BLUE)
 
-# Draw the text area
-#text_rect = pygame.Rect(0, 0, SCREEN_SIZE[0], font.get_height() * 4)
-#pygame.draw.rect(screen, FUCHSIA, text_rect)
-
-# Draw the text
-#texts = ["Welcome to Kennedy Approach!", "Flight control tower", "Air traffic control"]
-#for i, text in enumerate(texts):
-    #line = font.render(text, True, BLACK)
-    #line_rect = line.get_rect(center=(SCREEN_SIZE[0] / 2, font.get_height() * (i+1) + 10))
-    #screen.blit(line, line_rect)
 # Draw the text area
 text_rect = pygame.Rect(0, 0, SCREEN_SIZE[0], font.get_height() * 5)
 pygame.draw.rect(screen, FUCHSIA, text_rect)
@@ -92,16 +81,17 @@ class Airport:
         runway_rect = pygame.Rect(rect.centerx - runway_width/2, rect.centery - runway_height/2, runway_width, runway_height)
         pygame.draw.rect(screen, BLACK, runway_rect)
 
-        # Draw the runway stripes
+        # Draw the runway centerline as dashed lines
         stripe_width = 1
         stripe_gap = 4
         stripe_length = 5
         num_stripes = int(runway_width / (stripe_width + stripe_gap))
 
         for i in range(num_stripes):
-            stripe_x = runway_rect.left + i * (stripe_width + stripe_gap)
-            stripe_rect = pygame.Rect(stripe_x, runway_rect.centery - stripe_width/2, stripe_length, stripe_width)
-            pygame.draw.rect(screen, WHITE, stripe_rect)
+            if i % 2 == 0:
+                stripe_x = runway_rect.left + i * (stripe_width + stripe_gap)
+                stripe_rect = pygame.Rect(stripe_x, runway_rect.centery - stripe_width/2, stripe_length, stripe_width)
+                pygame.draw.rect(screen, WHITE, stripe_rect)
 
         # Draw the text label of the airport code in black monospace font
         label = font.render(self.name, True, BLACK)
@@ -109,10 +99,10 @@ class Airport:
         screen.blit(label, label_rect)
 
 # Define the airports
-jfk = Airport("JFK", (8, 15), (3, 1))
-lax = Airport("LAX", (4, 4), (6, 1))
-ord = Airport("ORD", (15, 10), (3, 1))
-atl = Airport("ATL", (4, 12), (4, 1))
+jfk = Airport("JFK", (16, 4), (3, 1))
+lax = Airport("LAX", (2, 17), (6, 1))
+ord = Airport("ORD", (6, 7), (3, 1))
+atl = Airport("ATL", (7, 12), (4, 1))
 
 # Draw the airports
 for airport in [jfk, lax, ord, atl]:
